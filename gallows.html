@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="rus">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Игра висилица</title>
+  </head>
+
+  <body>
+    <script>
+      let name = prompt('Как вас зовут?');
+      // const words = ['апельсин', 'банан', 'яблоко', 'груша', 'ананас', 'киви', 'персик'];
+      const words = ['банан'];
+      const randomWord = words[Math.floor(Math.random() * words.length)];
+      let answerArray = [];
+      for (let i = 0; i < randomWord.length; i++) {
+        answerArray.push('_');
+      }
+      let remainingLetters = randomWord.length;
+      let numberOfAttempt = 5;
+      alert(`Привет, ${name}! Тебе нужно угадать фрукт. У тебя есть ${numberOfAttempt} попыток`);
+
+      while (remainingLetters > 0 && numberOfAttempt > 0) {
+        alert(answerArray.join(' '));
+        let guess = prompt(`Угадайте букву или нажмите отмена для выхода. (Осталось ${numberOfAttempt} попыток)`);
+        if (guess === null) {
+          break;
+        }
+        if (guess.length !== 1) {
+          alert('Введите, пожалуйста, только одну букву.');
+        } else {
+          guess = guess.toLowerCase();
+          numberOfAttempt--;
+          for (let a = 0; a < randomWord.length; a++) {
+            if (guess === randomWord[a]) {
+              if (answerArray[a] === guess) {
+                alert('Вы уже угадали эту букву');
+                break;
+              } else {
+                answerArray[a] = guess;
+                remainingLetters--;
+              }
+            }
+          }
+        }
+      }
+      if (numberOfAttempt === 0) {
+        alert(`Игра окончена. Было загадано слово ${randomWord}`);
+      } else {
+        alert(`Отлично ${name}! Было загадано слово ${randomWord}.`);
+      }
+    </script>
+  </body>
+</html>
